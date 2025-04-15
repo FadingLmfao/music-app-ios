@@ -1,1 +1,24 @@
+workflows:
+  ios-build:
+    name: iOS IPA Build
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      vars:
+        APP_NAME: "YourAppName"
+    scripts:
+      - name: Install Flutter dependencies
+        script: |
+          flutter pub get
+      - name: Build iOS .ipa
+        script: |
+          flutter build ios --release --no-codesign
+    artifacts:
+      - build/ios/iphoneos/*.ipa
+    publishing:
+      scripts:
+        - name: Show IPA path
+          script: |
+            echo "IPA is available in the artifacts section after the build."
 
